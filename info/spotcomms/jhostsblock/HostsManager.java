@@ -1,7 +1,6 @@
 package info.spotcomms.jhostsblock;
 
 import java.io.*;
-import java.nio.file.*;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +17,7 @@ public class HostsManager {
     public File configDir = utils.getConfigDir();//The directory where we store configs
     public File hostsFile = utils.getHostsFile();//The path where the HOSTS file is stored
     public File hostsFileOld = new File(hostsFile + ".bak");//The path where the old HOSTS file is stored
-    public File hostsHeaderFile = new File(configDir, "hostsHeader.txt");//The path of where the HOSTS header file is stored
+    public File hostsHeaderFile = new File(configDir, "hostsheader.txt");//The path of where the HOSTS header file is stored
     public ArrayList<String> hostsHeader;//Contains a header for the HOSTS file
     public File whitelistFile = new File(configDir, "whitelist.txt");//The path of where the whitelist file is stored
     public ArrayList<String> whitelist;//Contains user addresses we shouldn't block

@@ -9,7 +9,7 @@ package info.spotcomms.jhostsblock;
 public class Console {
 
     public Console(boolean isAdmin, String[] args) {
-        System.out.println("=================================== JHostsBlock ===================================");//Banner
+        System.out.println("========================= JHostsBlock =========================");//Banner
         if(!isAdmin) {//Inform the user and exit the program if not launched with administrative/root privileges
             System.out.println("This program requires to be run with administrative/root privileges");//Inform
             System.exit(0);//Exit

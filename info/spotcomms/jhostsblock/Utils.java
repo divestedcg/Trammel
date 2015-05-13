@@ -112,7 +112,7 @@ public class Utils {
                 while (fileIn.hasNext()) {
                     String line = fileIn.nextLine();
                     if (!line.contains("#"))
-                        out.add(line.replaceAll("\t", ""));
+                        out.add(line);
                 }
             }
         } catch(Exception e) {

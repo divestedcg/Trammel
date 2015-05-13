@@ -38,7 +38,7 @@ public class Utils {
         File configDir = new File("");
         switch(getOS()) {
             case "Linux":
-                configDir = new File(System.getProperty("user.home") + "/.config/JHostsBlock/");
+                configDir = new File("/etc/jhostsblock/");
                 break;
             case "Mac":
                 configDir = new File(System.getProperty("user.home") + "/Library/Application Support/JHostsBlock/");
@@ -64,6 +64,16 @@ public class Utils {
                 break;
         }
         return hostsFile;
+    }
+
+    //Credit: http://stackoverflow.com/a/4895572
+    public static String byteArrayToHexString(byte[] b) {
+        String result = "";
+        for (int i=0; i < b.length; i++) {
+            result +=
+                Integer.toString( ( b[i] & 0xff ) + 0x100, 16).substring( 1 );
+        }
+        return result;
     }
 
     public String identifyFileType(String url) {//Attempt to identify the file type based off the URL

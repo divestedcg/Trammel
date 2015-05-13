@@ -92,7 +92,7 @@ public class Utils {
             Scanner fileIn = new Scanner(in);
             while (fileIn.hasNext()) {
                 String line = fileIn.nextLine();
-                if (!line.startsWith("#"))
+                if (!line.contains("#"))
                     out.add(line);
             }
         } catch(Exception e) {
@@ -111,7 +111,7 @@ public class Utils {
                 Scanner fileIn = new Scanner(new GZIPInputStream(new FileInputStream(in)));
                 while (fileIn.hasNext()) {
                     String line = fileIn.nextLine();
-                    if (!line.startsWith("#"))
+                    if (!line.contains("#"))
                         out.add(line);
                 }
             }

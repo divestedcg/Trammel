@@ -96,7 +96,7 @@ public class HostsManager {
                 c++;
             }
             for(String line : hostsFileOut) {//Write out the blacklisted hosts to the HOSTS file
-                writer.write(line + "\n");
+                writer.write(line.replaceAll("\t", "") + "\n");
                 c++;
             }
             System.out.println("Wrote out " + c + " entries to HOSTS file");

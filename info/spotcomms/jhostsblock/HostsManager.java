@@ -90,13 +90,16 @@ public class HostsManager {
             hostsFile.renameTo(hostsFileOld);
             System.out.println("Backed up current HOSTS file");
             Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(hostsFile), "utf-8"));//Instantiate a Writer object pointed at the HOSTS file
+            int c = 0;
             for(String line : hostsHeader) {//Write out the header to the HOSTS file
                 writer.write(line + "\n");
+                c++;
             }
             for(String line : hostsFileOut) {//Write out the blacklisted hosts to the HOSTS file
                 writer.write(line + "\n");
+                c++;
             }
-            System.out.println("Wrote out new HOSTS file");
+            System.out.println("Wrote out " + c + " entries to HOSTS file");
             System.out.println("Successfully updated HOSTS file");
         } catch(Exception e) {
             System.out.println("Failed to update HOSTS file");

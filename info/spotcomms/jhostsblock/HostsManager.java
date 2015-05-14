@@ -79,9 +79,9 @@ public class HostsManager {
             System.out.println("Removed duplicates from out list");
             int r = 0;
             for(String line : whitelist) {//Remote whitelisted entries from the out array
-                for(String host : hostsFileOut) {
-                    if(host.contains(line)) {
-                        hostsFileOut.remove(host);
+                for(int x = 0; x < hostsFileOut.size(); x++) {
+                    if(hostsFileOut.get(x).contains(line)) {
+                        hostsFileOut.remove(x);
                         r++;
                     }
                 }

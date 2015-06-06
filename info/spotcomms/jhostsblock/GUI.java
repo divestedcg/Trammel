@@ -9,7 +9,7 @@ package info.spotcomms.jhostsblock;
 public class GUI {
 
     public GUI(boolean isAdmin) {
-        if(!isAdmin) {
+        if (!isAdmin) {
             //Display popup
             System.exit(0);
         } else {

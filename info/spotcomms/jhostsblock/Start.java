@@ -11,7 +11,7 @@ import java.util.prefs.Preferences;
 public class Start {
 
     public static void main(String[] args) {
-        if(args.length > 0) {//Check if arguments were passed
+        if (args.length > 0) {//Check if arguments were passed
             //Console mode
             Console c = new Console(isAdmin(), args);//Instantiate a new Console class
         } else {

@@ -14,8 +14,8 @@ Known Issues
 Planned Updates
 ---------------
 - GUI
-- ZIP support
 - Caching of downloaded files
+- Better parsing
 
 Reasons for Creation || Issues with Similar Programs
 ----------------------------------------------------
@@ -27,3 +27,4 @@ Credits
 - http://stackoverflow.com/a/14656534
 - http://stackoverflow.com/a/5741080
 - http://stackoverflow.com/a/4895572
+- http://stackoverflow.com/a/18974782

@@ -16,16 +16,20 @@ Supported Lists
 
 Recommended Lists
 -----------------
-- http://hosts-file.net/ad_servers.asp
-- http://hosts-file.net/download/hosts.zip
-- http://hosts-file.net/hphosts-partial.asp
-- http://hostsfile.mine.nu/Hosts.zip
-- http://mirror1.malwaredomains.com/files/blockeddomain.hosts
-- http://pgl.yoyo.org/as/serverlist.php?hostformat=hosts&mimetype=plaintext
+- http://hosts-file.net/ad_servers.txt
+- http://hosts-file.net/emd.txt
+- http://hosts-file.net/fsa.txt
+- http://hosts-file.net/grm.txt
+- http://hosts-file.net/hfs.txt
+- http://hosts-file.net/hjk.txt
+- http://hosts-file.net/mmt.txt
+- http://hosts-file.net/psh.txt
+- http://malwaredomains.lehigh.edu/files/justdomains
+- http://pgl.yoyo.org/as/serverlist.php?hostformat=html&mimetype=plaintext
 - http://someonewhocares.org/hosts/hosts
 - http://sysctl.org/cameleon/hosts
-- http://winhelp2002.mvps.org/hosts.zip
 - http://www.malwaredomainlist.com/hostslist/hosts.txt
+- http://www.winhelp2002.mvps.org/hosts.txt
 - https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
 - https://s3.amazonaws.com/lists.disconnect.me/simple_malware.txt
 - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt

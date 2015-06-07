@@ -143,8 +143,11 @@ public class Utils {
                 if(!line.contains("#") && !line.trim().equals("")) {//Skip if line is a comment or is blank
                     Pattern pattern = Pattern.compile(hostnameRegex);//Only look for hostnames in a string
                     Matcher matcher = pattern.matcher(line);//Apply the pattern to the string
-                    if (matcher.find() && matcher.group().contains(".")) {//Check if the string meets our requirements
-                        out.add("127.0.0.1" + " " + matcher.group());//Add the entry if it does
+                    if (matcher.find()) {//Check if the string meets our requirements
+                        String hostname = matcher.group();
+                        if(hostname.contains(".") && hostname.length() >= 4 && !hostname.equals("www.")) {//Extra checks
+                            out.add("127.0.0.1" + " " + matcher.group());//Add the entry if it does
+                        }
                     }
                 }
             }

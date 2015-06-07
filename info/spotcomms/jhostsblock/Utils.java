@@ -10,6 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -19,6 +21,9 @@ import java.util.zip.GZIPInputStream;
  * Time; 12:24 PM
  */
 public class Utils {
+
+    String ipAddressRegex = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))"; //Credit: http://stackoverflow.com/a/5667402
+    String hostnameRegex = "(?:(?:(?:(?:[a-zA-Z0-9][-a-zA-Z0-9]{0,61})?[a-zA-Z0-9])[.])*(?:[a-zA-Z][-a-zA-Z0-9]{0,61}[a-zA-Z0-9]|[a-zA-Z])[.]?)"; //Credit: http://stackoverflow.com/a/1418724
 
     private String getOS() {
         try {
@@ -135,21 +140,11 @@ public class Utils {
             }
             while (fileIn.hasNext()) {
                 String line = fileIn.nextLine();
-                if (!line.startsWith("#")) {
-                    if (!line.trim().equals("")) {
-                        if (line.startsWith("0.0.0.0")) {
-                            line = "127.0.0.1" + line.substring(7, line.length());
-                        }
-                        if (!line.startsWith("127.0.0.1") || !line.contains("127.0.0.1")) {
-                            line = "127.0.0.1 " + line;
-                        }
-                        if (line.contains("\t")) {
-                            line.replaceAll("\t", " ");
-                        }
-                        if (line.contains("\t ")) {
-                            line.replaceAll("\t ", "");
-                        }
-                        out.add(line.trim());
+                if(!line.contains("#") && !line.trim().equals("")) {//Skip if line is a comment or is blank
+                    Pattern pattern = Pattern.compile(hostnameRegex);
+                    Matcher matcher = pattern.matcher(line);
+                    if (matcher.find()) {
+                        out.add("127.0.0.1" + " " + matcher.group());
                     }
                 }
             }

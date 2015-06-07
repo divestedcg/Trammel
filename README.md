@@ -48,8 +48,10 @@ Reasons for Creation || Issues with Similar Programs
 
 Credits
 -------
+- http://stackoverflow.com/a/1418724
 - http://stackoverflow.com/a/14656534
 - http://stackoverflow.com/a/18974782
 - http://stackoverflow.com/a/23538961
 - http://stackoverflow.com/a/4895572
+- http://stackoverflow.com/a/5667402
 - http://stackoverflow.com/a/5741080

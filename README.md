@@ -32,13 +32,12 @@ Recommended Lists
 
 Known Issues
 ------------
-- None yet
+- Sometimes "127." will be at the end of the file
 
 Planned Updates
 ---------------
 - .7z file support
 - .tar.gz file support
-- Better parsing
 - Caching of downloaded files
 - GUI
 
@@ -51,7 +50,7 @@ Credits
 - http://stackoverflow.com/a/1418724
 - http://stackoverflow.com/a/14656534
 - http://stackoverflow.com/a/18974782
+- http://stackoverflow.com/a/203992
 - http://stackoverflow.com/a/23538961
 - http://stackoverflow.com/a/4895572
 - http://stackoverflow.com/a/5667402
-- http://stackoverflow.com/a/5741080

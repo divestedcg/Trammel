@@ -4,6 +4,8 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created using IntelliJ IDEA
@@ -81,25 +83,27 @@ public class HostsManager {
             hostsFileOut.addAll(blacklist);//Merge the users blacklist array with the out array
             System.out.println("Merged user blacklist into out list");
             Collections.sort(hostsFileOut);//Sort the out array
+            int c = hostsFileOut.size();
+            hostsFileOut = utils.removeDuplicates(hostsFileOut);//Remove any duplicates from the out array
+            System.out.println("Removed " + (c-hostsFileOut.size()) + " duplicates from out list");
+            Collections.sort(hostsFileOut);//Sort the out array
             System.out.println("Sorted the out list");
-            utils.removeDuplicates(hostsFileOut);//Remove any duplicates from the out array
-            System.out.println("Removed duplicates from out list");
-            int r = 0;
+            c = 0;
             for (String line : whitelist) {//Remote whitelisted entries from the out array
                 for (int x = 0; x < hostsFileOut.size(); x++) {
                     if (hostsFileOut.get(x).contains(line)) {
                         hostsFileOut.remove(x);
-                        r++;
+                        c++;
                     }
                 }
             }
-            System.out.println("Removed " + r + " entries that were whitelisted");
+            System.out.println("Removed " + c + " entries that were whitelisted");
             hostsFile.renameTo(hostsFileOld);
             System.out.println("Backed up current HOSTS file");
             Writer writer = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(hostsFile),
                     "utf-8"));//Instantiate a Writer object pointed at the HOSTS file
-            int c = 0;
+            c = 0;
             for (String line : hostsHeader) {//Write out the header to the HOSTS file
                 writer.write(line + "\n");
                 c++;

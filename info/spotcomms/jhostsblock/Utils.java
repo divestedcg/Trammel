@@ -141,10 +141,10 @@ public class Utils {
             while (fileIn.hasNext()) {
                 String line = fileIn.nextLine();
                 if(!line.contains("#") && !line.trim().equals("")) {//Skip if line is a comment or is blank
-                    Pattern pattern = Pattern.compile(hostnameRegex);
-                    Matcher matcher = pattern.matcher(line);
-                    if (matcher.find()) {
-                        out.add("127.0.0.1" + " " + matcher.group());
+                    Pattern pattern = Pattern.compile(hostnameRegex);//Only look for hostnames in a string
+                    Matcher matcher = pattern.matcher(line);//Apply the pattern to the string
+                    if (matcher.find() && matcher.group().contains(".")) {//Check if the string meets our requirements
+                        out.add("127.0.0.1" + " " + matcher.group());//Add the entry if it does
                     }
                 }
             }
@@ -162,17 +162,13 @@ public class Utils {
         }
     }
 
-    //Credit: http://stackoverflow.com/a/5741080
-    public void removeDuplicates(ArrayList<String> l) {//Remove duplicates from an array
-        Set<Object> s = new TreeSet<Object>(new Comparator<Object>() {
-            @Override
-            public int compare(Object o1,
-                Object o2) {//Compare the two object according to your requirements
-                return 0;
-            }
-        });
-        s.addAll(l);
-        List<Object> res = Arrays.asList(s.toArray());
+    //Credit: http://stackoverflow.com/a/203992
+    public ArrayList<String> removeDuplicates(ArrayList<String> l) {//Remove duplicates from an array
+        Set<String> lNew = new HashSet<String>();
+        lNew.addAll(l);
+        l.clear();
+        l.addAll(lNew);
+        return l;
     }
 
 }

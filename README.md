@@ -57,6 +57,7 @@ Reasons for Creation || Issues with Similar Programs
 
 Credits
 -------
+- http://fahdshariff.blogspot.ru/2011/08/java-7-deleting-directory-by-walking.html
 - http://stackoverflow.com/a/1418724
 - http://stackoverflow.com/a/14656534
 - http://stackoverflow.com/a/18974782

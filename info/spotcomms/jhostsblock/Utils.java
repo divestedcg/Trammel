@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2015. Spot Communications
+ */
+
 package info.spotcomms.jhostsblock;
 
 import net.lingala.zip4j.core.ZipFile;

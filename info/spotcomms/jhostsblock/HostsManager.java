@@ -1,7 +1,8 @@
 package info.spotcomms.jhostsblock;
 
 import javax.swing.*;
-import java.io.*;
+import java.io.File;
+import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +20,7 @@ public class HostsManager {
     private Utils utils = new Utils();
     private File dirConfigs = utils.getConfigDir();
     private File dirCache = new File(dirConfigs, "cache");
-    private File fleHeader = new File(dirConfigs, "hostsheader.conf");
+    private File fleHeader = new File(dirConfigs, "header.conf");
     private ArrayList<String> arrHeader;
     private File fleWhitelist = new File(dirConfigs, "whitelist.conf");
     private ArrayList<String> arrWhitelist;
@@ -69,31 +70,31 @@ public class HostsManager {
 
     public void update() {
         try {
-            for(String url : arrBlocklists) {
+            for (String url : arrBlocklists) {
                 File out = new File(dirCache, utils.byteArrayToHexString(MessageDigest.getInstance("MD5").digest(url.getBytes("utf-8"))) + utils.identifyFileType(url));
                 utils.downloadFile(url, out.toPath(), cache);
                 arrDomains.addAll(utils.readHostsFileIntoArray(out));
             }
             arrDomains.addAll(arrBlacklist);
-            for(String domain : arrWhitelist) {
+            for (String domain : arrWhitelist) {
                 arrDomains.remove(domain);
             }
             ArrayList<String> arrDomainsNew = new ArrayList<String>();
             arrDomainsNew.addAll(arrDomains);
             Collections.sort(arrDomainsNew);
-            switch(format) {
+            switch (format) {
                 case 0:
-                    if(optimizeHosts) {
+                    if (optimizeHosts) {
                         String line = "";
-                        for(int x = 0; x < arrDomainsNew.size(); x++) {
+                        for (int x = 0; x < arrDomainsNew.size(); x++) {
                             String domain = arrDomainsNew.get(x);
-                            if(x == (arrDomainsNew.size() - 1)) {
+                            if (x == (arrDomainsNew.size() - 1)) {
                                 line += domain;
                                 if (optimizeIPs)
                                     arrOut.add("0.0.0.0 " + line);
                                 else
                                     arrOut.add("127.0.0.1 " + line);
-                            } else if(line.split(" ").length >= 5) {
+                            } else if (line.split(" ").length >= 5) {
                                 if (optimizeIPs)
                                     arrOut.add("0.0.0.0 " + line);
                                 else
@@ -118,7 +119,7 @@ public class HostsManager {
             }
             fleOutput.renameTo(fleOutputOld);
             PrintWriter writer = new PrintWriter(fleOutput, "UTF-8");
-            if(format == 0) {
+            if (format == 0) {
                 for (String line : arrHeader) {
                     writer.println(line);
                 }

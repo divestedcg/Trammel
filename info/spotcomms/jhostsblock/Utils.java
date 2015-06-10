@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
@@ -69,12 +68,12 @@ public class Utils {
 
     public void downloadFile(String url, Path out, boolean useCache) {
         try {
-            if(useCache && out.toFile().exists()) {
+            if (useCache && out.toFile().exists()) {
                 HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
                 connection.addRequestProperty("User-Agent", "Mozilla/5.0 Gecko Firefox");
                 connection.setIfModifiedSince(out.toFile().lastModified());
                 connection.connect();
-                if(connection.getResponseCode() != HttpURLConnection.HTTP_NOT_MODIFIED)
+                if (connection.getResponseCode() != HttpURLConnection.HTTP_NOT_MODIFIED)
                     Files.copy(new URL(url).openStream(), out, StandardCopyOption.REPLACE_EXISTING);
                 connection.disconnect();
             } else {
@@ -193,12 +192,12 @@ public class Utils {
             }
             while (fileIn.hasNext()) {
                 String line = fileIn.nextLine();
-                if(!line.contains("#") && !line.trim().equals("")) {//Skip if line is a comment or is blank
+                if (!line.contains("#") && !line.trim().equals("")) {//Skip if line is a comment or is blank
                     Pattern pattern = Pattern.compile(hostnameRegex);//Only look for hostnames in a string
                     Matcher matcher = pattern.matcher(line);//Apply the pattern to the string
                     if (matcher.find()) {//Check if the string meets our requirements
                         String hostname = matcher.group();
-                        if(hostname.contains(".") && hostname.length() >= 4 && !hostname.equals("www.")) {//Extra checks
+                        if (hostname.contains(".") && hostname.length() >= 4 && !hostname.equals("www.")) {//Extra checks
                             out.add(matcher.group());
                         }
                     }

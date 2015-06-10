@@ -12,7 +12,7 @@ public class Start {
 
     public static void main(String[] args) {
         Utils utils = new Utils();
-        if(!utils.getConfigDir().exists()) {
+        if (!utils.getConfigDir().exists()) {
             new HostsManager().generateDefaults();
         }
         if (args.length > 0) {

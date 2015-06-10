@@ -1,35 +1,35 @@
 package info.spotcomms.jhostsblock;
 
-import java.util.prefs.Preferences;
+import javax.swing.*;
 
 /**
  * Created using IntelliJ IDEA
  * User: Tad
- * Date: 5/13/15
- * Time; 11:24 AM
+ * Date: 6/9/15
+ * Time; 1:09 PM
  */
 public class Start {
 
     public static void main(String[] args) {
-        if (args.length > 0) {//Check if arguments were passed
-            //Console mode
-            Console c = new Console(isAdmin(), args);//Instantiate a new Console class
-        } else {
-            //Graphical mode
-            GUI g = new GUI(isAdmin());//Instantiate a new GUI class
+        Utils utils = new Utils();
+        if(!utils.getConfigDir().exists()) {
+            new HostsManager().generateDefaults();
         }
-    }
-
-    //Credits: http://stackoverflow.com/a/23538961
-    private static boolean isAdmin() {//Check if we've launched with administrative/root privileges
-        try {
-            Preferences prefs = Preferences.systemRoot();
-            prefs.put("jhostsblock", "swag");//SecurityException on Windows
-            prefs.remove("jhostsblock");
-            prefs.flush();//BackingStoreException on Linux
-            return true;
-        } catch (Exception e) {
-            return false;
+        if (args.length > 0) {
+            Console c = new Console(args);
+        } else {
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (UnsupportedLookAndFeelException e) {
+                e.printStackTrace();
+            }
+            GUI g = new GUI();
         }
     }
 

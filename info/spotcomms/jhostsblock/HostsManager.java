@@ -1,5 +1,6 @@
 package info.spotcomms.jhostsblock;
 
+import javax.swing.*;
 import java.io.*;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -10,137 +11,152 @@ import java.util.Set;
 /**
  * Created using IntelliJ IDEA
  * User: Tad
- * Date: 5/13/15
- * Time; 11:37 AM
+ * Date: 6/9/15
+ * Time; 7:56 PM
  */
 public class HostsManager {
 
-    Utils utils = new Utils();//Instantiate a new Utils class
-    public File configDir = utils.getConfigDir();//The directory where we store configs
-    public File hostsFile = utils.getHostsFile();//The path where the HOSTS file is stored
-    public File hostsFileOld = new File(hostsFile + ".bak");
-        //The path where the old HOSTS file is stored
-    public File hostsHeaderFile = new File(configDir, "hostsheader.txt");
-        //The path of where the HOSTS header file is stored
-    public ArrayList<String> hostsHeader;//Contains a header for the HOSTS file
-    public File whitelistFile = new File(configDir, "whitelist.txt");
-        //The path of where the whitelist file is stored
-    public ArrayList<String> whitelist;//Contains user addresses we shouldn't block
-    public File blacklistFile = new File(configDir, "blacklist.txt");
-        //The path of where the blacklist file is stored
-    public ArrayList<String> blacklist;//Contains user addresses we should block
-    public File blockListsDir = new File(configDir + "/Downloaded_Lists/");
-        //The path of where blocklists are stored
-    public File blockListsFile = new File(configDir, "blocklists.txt");
-        //The path of where the blocklists file is stored
-    public ArrayList<String> blockLists;//Contains user URLs with blocklists
-    public ArrayList<String> hostsFileOut = new ArrayList<String>();
-        //Contains the processed blacklisted hosts
+    private Utils utils = new Utils();
+    private File dirConfigs = utils.getConfigDir();
+    private File dirCache = new File(dirConfigs, "cache");
+    private File fleHeader = new File(dirConfigs, "hostsheader.conf");
+    private ArrayList<String> arrHeader;
+    private File fleWhitelist = new File(dirConfigs, "whitelist.conf");
+    private ArrayList<String> arrWhitelist;
+    private File fleBlacklist = new File(dirConfigs, "blacklist.conf");
+    private ArrayList<String> arrBlacklist;
+    private File fleBlocklists = new File(dirConfigs, "blocklists.conf");
+    private ArrayList<String> arrBlocklists;
+    private Set<String> arrDomains = new HashSet<String>();
+    private ArrayList<String> arrOut = new ArrayList<String>();
+    private boolean cache;
+    private boolean optimizeHosts;
+    private boolean optimizeIPs;
+    private int format;
+    private File fleOutput;
+    private File fleOutputOld;
 
-    public HostsManager() {//Read the configs files in
+    public HostsManager() {
+
+    }
+
+    public HostsManager(boolean cache, boolean optimizeHosts, boolean optimizeIPs, int format, File fleOutput) {
+        this.cache = cache;
+        this.optimizeHosts = optimizeHosts;
+        this.optimizeIPs = optimizeIPs;
+        this.format = format;
+        this.fleOutput = fleOutput;
+        fleOutputOld = new File(fleOutput + ".bak");
+        arrHeader = utils.readFileIntoArray(fleHeader);
+        arrWhitelist = utils.readFileIntoArray(fleWhitelist);
+        arrBlacklist = utils.readFileIntoArray(fleBlacklist);
+        arrBlocklists = utils.readFileIntoArray(fleBlocklists);
+    }
+
+    public void generateDefaults() {
         try {
-            if (!configDir.exists()) {//Create needed folders/files if configDir doesn't exist
-                generateFiles();
-            }
-            hostsHeader = utils.readFileIntoArray(hostsHeaderFile);
-            whitelist = utils.readFileIntoArray(whitelistFile);
-            blacklist = utils.readFileIntoArray(blacklistFile);
-            blockLists = utils.readFileIntoArray(blockListsFile);
-            System.out.println(whitelist.size() + " whitelisted entries loaded");
-            System.out.println(blacklist.size() + " blacklisted entries loaded");
-            System.out.println(blockLists.size() + " blocklists loaded");
+            dirConfigs.mkdirs();
+            dirCache.mkdirs();
+            fleHeader.createNewFile();
+            fleWhitelist.createNewFile();
+            fleBlacklist.createNewFile();
+            fleBlocklists.createNewFile();
+            //TODO Possibly set some defaults
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void generateFiles() {//Create needed folders/files
+    public void update() {
         try {
-            configDir.mkdirs();
-            blockListsDir.mkdirs();
-            hostsHeaderFile.createNewFile();
-            whitelistFile.createNewFile();
-            blacklistFile.createNewFile();
-            blockListsFile.createNewFile();
-            System.out.println("Created needed folders/files");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void update() {//Updates the HOSTS file with the latest lists
-        try {
-            for (String url : blockLists) {
-                File out = new File(blockListsDir, utils.byteArrayToHexString(
-                    MessageDigest.getInstance("MD5").digest(url.getBytes("utf-8"))) + utils
-                    .identifyFileType(url));//Generate the out path
-                System.out.println("Currently processing " + url);
-                utils.downloadFile(url, out.toPath());//Download the file
-                hostsFileOut.addAll(
-                    utils.readHostsFileIntoArray(out));//Merge the new array with the out array
+            for(String url : arrBlocklists) {
+                File out = new File(dirCache, utils.byteArrayToHexString(MessageDigest.getInstance("MD5").digest(url.getBytes("utf-8"))) + utils.identifyFileType(url));
+                utils.downloadFile(url, out.toPath(), cache);
+                arrDomains.addAll(utils.readHostsFileIntoArray(out));
             }
-            System.out.println("Downloaded all lists");
-            hostsFileOut.addAll(blacklist);//Merge the users blacklist array with the out array
-            System.out.println("Merged user blacklist into out list");
-            Collections.sort(hostsFileOut);//Sort the out array
-            int c = hostsFileOut.size();
-            hostsFileOut = utils.removeDuplicates(hostsFileOut);//Remove any duplicates from the out array
-            System.out.println("Removed " + (c-hostsFileOut.size()) + " duplicates from out list");
-            Collections.sort(hostsFileOut);//Sort the out array
-            System.out.println("Sorted the out list");
-            c = 0;
-            for (String line : whitelist) {//Remote whitelisted entries from the out array
-                for (int x = 0; x < hostsFileOut.size(); x++) {
-                    if (hostsFileOut.get(x).contains(line)) {
-                        hostsFileOut.remove(x);
-                        c++;
+            arrDomains.addAll(arrBlacklist);
+            for(String domain : arrWhitelist) {
+                arrDomains.remove(domain);
+            }
+            ArrayList<String> arrDomainsNew = new ArrayList<String>();
+            arrDomainsNew.addAll(arrDomains);
+            Collections.sort(arrDomainsNew);
+            switch(format) {
+                case 0:
+                    if(optimizeHosts) {
+                        String line = "";
+                        for(int x = 0; x < arrDomainsNew.size(); x++) {
+                            String domain = arrDomainsNew.get(x);
+                            if(x == (arrDomainsNew.size() - 1)) {
+                                line += domain;
+                                if (optimizeIPs)
+                                    arrOut.add("0.0.0.0 " + line);
+                                else
+                                    arrOut.add("127.0.0.1 " + line);
+                            } else if(line.split(" ").length >= 5) {
+                                if (optimizeIPs)
+                                    arrOut.add("0.0.0.0 " + line);
+                                else
+                                    arrOut.add("127.0.0.1 " + line);
+                                line = domain + " ";
+                            } else {
+                                line += domain + " ";
+                            }
+                        }
+                    } else {
+                        if (optimizeIPs)
+                            for (String domain : arrDomainsNew)
+                                arrOut.add("0.0.0.0 " + domain);
+                        else
+                            for (String domain : arrDomainsNew)
+                                arrOut.add("127.0.0.1 " + domain);
                     }
+                    break;
+                case 1://Optimizations aren't allowed for domains only
+                    arrOut.addAll(arrDomainsNew);
+                    break;
+            }
+            fleOutput.renameTo(fleOutputOld);
+            PrintWriter writer = new PrintWriter(fleOutput, "UTF-8");
+            if(format == 0) {
+                for (String line : arrHeader) {
+                    writer.println(line);
                 }
             }
-            System.out.println("Removed " + c + " entries that were whitelisted");
-            hostsFile.renameTo(hostsFileOld);
-            System.out.println("Backed up current HOSTS file");
-            Writer writer = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(hostsFile),
-                    "utf-8"));//Instantiate a Writer object pointed at the HOSTS file
-            c = 0;
-            for (String line : hostsHeader) {//Write out the header to the HOSTS file
-                writer.write(line + "\n");
-                c++;
+            for (String line : arrOut) {
+                writer.println(line);
             }
-            for (String line : hostsFileOut) {//Write out the blacklisted hosts to the HOSTS file
-                writer.write(line + "\n");
-                c++;
-            }
-            System.out.println("Wrote out " + c + " entries to HOSTS file");
-            System.out.println("Successfully updated HOSTS file");
+            writer.close();
+            utils.showAlert("Hosts Manager", "Successfully exported domains to file", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            System.out.println("Failed to update HOSTS file");
             e.printStackTrace();
+            utils.showAlert("Hosts Manager", "Failed to generate file", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void rollback(
-        boolean original) {//Rolls back the HOSTS file to the previous one or the original one
+    public void rollback() {
         try {
-            if (original) {
-                Writer writer = new BufferedWriter(
-                    new OutputStreamWriter(new FileOutputStream(hostsFile),
-                        "utf-8"));//Instantiate a Write object pointed at the HOSTS file
-                for (String line : hostsHeader) {//Write out the header to the HOSTS file
-                    writer.write(line);
-                }
-                System.out.println("Wrote out the original HOSTS file");
-            } else {
-                hostsFile.delete();//Delete the current HOSTS file
-                System.out.println("Deleted current HOSTS file");
-                hostsFileOld.renameTo(hostsFile);//Rename the old HOSTS file to the actual one
-                System.out.println("Moved the old HOSTS file into place");
-            }
-            System.out.println("Successfully reverted HOSTS file");
+            fleOutput.delete();
+            fleOutputOld.renameTo(fleOutput);
+            utils.showAlert("Hosts Manager", "Successfully rolled back file", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            System.out.println("Failed to revert HOSTS file");
             e.printStackTrace();
+            utils.showAlert("Hosts Manager", "Failed to rollback file", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void reset() {
+        try {
+            fleOutput.delete();
+            PrintWriter writer = new PrintWriter(fleOutput, "UTF-8");
+            for (String line : arrHeader) {
+                writer.println(line);
+            }
+            writer.close();
+            utils.showAlert("Hosts Manager", "Successfully reset file", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            utils.showAlert("Hosts Manager", "Failed to reset file", JOptionPane.ERROR_MESSAGE);
         }
     }
 

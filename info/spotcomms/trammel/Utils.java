@@ -2,7 +2,7 @@
  * Copyright (c) 2015. Spot Communications
  */
 
-package info.spotcomms.jhostsblock;
+package info.spotcomms.trammel;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.model.FileHeader;
@@ -92,14 +92,14 @@ public class Utils {
         File configDir = new File("");
         switch (getOS()) {
             case "Linux":
-                configDir = new File("/etc/jhostsblock/");
+                configDir = new File("/etc/trammel/");
                 break;
             case "Mac":
                 configDir = new File(
-                    System.getProperty("user.home") + "/Library/Application Support/JHostsBlock/");
+                    System.getProperty("user.home") + "/Library/Application Support/Trammel/");
                 break;
             case "Windows":
-                configDir = new File(System.getenv("AppData") + "/JHostsBlock/");
+                configDir = new File(System.getenv("AppData") + "/Trammel/");
                 break;
         }
         return configDir;
@@ -149,8 +149,8 @@ public class Utils {
     private static boolean isAdmin() {
         try {
             Preferences prefs = Preferences.systemRoot();
-            prefs.put("jhostsblock", "swag");//SecurityException on Windows
-            prefs.remove("jhostsblock");
+            prefs.put("trammel", "swag");//SecurityException on Windows
+            prefs.remove("trammel");
             prefs.flush();//BackingStoreException on Linux
             return true;
         } catch (Exception e) {

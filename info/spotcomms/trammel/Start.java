@@ -2,7 +2,7 @@
  * Copyright (c) 2015. Spot Communications
  */
 
-package info.spotcomms.jhostsblock;
+package info.spotcomms.trammel;
 
 import javax.swing.*;
 

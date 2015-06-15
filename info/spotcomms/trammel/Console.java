@@ -2,7 +2,7 @@
  * Copyright (c) 2015. Spot Communications
  */
 
-package info.spotcomms.jhostsblock;
+package info.spotcomms.trammel;
 
 /**
  * Created using IntelliJ IDEA
@@ -13,7 +13,7 @@ package info.spotcomms.jhostsblock;
 public class Console {
 
     public Console(String[] launchArgs) {
-        System.out.println("========================= JHostsBlock =========================");//Banner
+        System.out.println("========================= Trammel =========================");//Banner
         //TODO Add commands and make them do stuff
     }
 

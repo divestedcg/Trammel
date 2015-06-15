@@ -2,7 +2,7 @@
  * Copyright (c) 2015. Spot Communications
  */
 
-package info.spotcomms.jhostsblock;
+package info.spotcomms.trammel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +25,7 @@ public class Editor extends JFrame {
     private JButton btnSave;
 
     public Editor(String title, File fleIn) {
-        setTitle("JHostsBlock - Editing: " + title);
+        setTitle("Trammel - Editing: " + title);
         setLocation(150, 150);
         setContentPane(panContent);
         pack();

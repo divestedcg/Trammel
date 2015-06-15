@@ -2,7 +2,7 @@
  * Copyright (c) 2015. Spot Communications
  */
 
-package info.spotcomms.jhostsblock;
+package info.spotcomms.trammel;
 
 import javax.swing.*;
 import java.io.File;
@@ -132,10 +132,10 @@ public class HostsManager {
                 writer.println(line);
             }
             writer.close();
-            utils.showAlert("Hosts Manager", "Successfully exported domains to file", JOptionPane.INFORMATION_MESSAGE);
+            utils.showAlert("Trammel", "Successfully exported domains to file", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             e.printStackTrace();
-            utils.showAlert("Hosts Manager", "Failed to generate file", JOptionPane.ERROR_MESSAGE);
+            utils.showAlert("Trammel", "Failed to generate file", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -143,10 +143,10 @@ public class HostsManager {
         try {
             fleOutput.delete();
             fleOutputOld.renameTo(fleOutput);
-            utils.showAlert("Hosts Manager", "Successfully rolled back file", JOptionPane.INFORMATION_MESSAGE);
+            utils.showAlert("Trammel", "Successfully rolled back file", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             e.printStackTrace();
-            utils.showAlert("Hosts Manager", "Failed to rollback file", JOptionPane.ERROR_MESSAGE);
+            utils.showAlert("Trammel", "Failed to rollback file", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -158,10 +158,10 @@ public class HostsManager {
                 writer.println(line);
             }
             writer.close();
-            utils.showAlert("Hosts Manager", "Successfully reset file", JOptionPane.INFORMATION_MESSAGE);
+            utils.showAlert("Trammel", "Successfully reset file", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             e.printStackTrace();
-            utils.showAlert("Hosts Manager", "Failed to reset file", JOptionPane.ERROR_MESSAGE);
+            utils.showAlert("Trammel", "Failed to reset file", JOptionPane.ERROR_MESSAGE);
         }
     }
 

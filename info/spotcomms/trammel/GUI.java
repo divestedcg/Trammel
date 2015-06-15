@@ -2,7 +2,7 @@
  * Copyright (c) 2015. Spot Communications
  */
 
-package info.spotcomms.jhostsblock;
+package info.spotcomms.trammel;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -38,7 +38,7 @@ public class GUI extends JFrame implements ActionListener {
     private boolean finished = false;
 
     public GUI() {
-        setTitle("JHostsBlock");
+        setTitle("Trammel");
         setLocation(150, 150);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setContentPane(panContent);

@@ -2,7 +2,7 @@
 pkgname=trammel
 pkgver=v2.5
 pkgrel=1
-pkgdesc="A multiplatform Java basedfree HOSTS file manager"
+pkgdesc="A multiplatform Java based HOSTS file manager"
 arch=('any')
 url="https://github.com/SpotComms/Trammel"
 license=('MIT')

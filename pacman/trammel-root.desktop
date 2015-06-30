@@ -3,7 +3,7 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Exec=/usr/bin/gksu "java -jar /usr/share/java/Trammel/Trammel.jar"
+Exec=/usr/bin/gksu "java -jar /usr/share/java/trammel/trammel.jar"
 Icon=trammel
 Categories=Utility;
 Name=Trammel (as root)

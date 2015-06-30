@@ -1,0 +1,23 @@
+# Maintainer: Tad D <tad@spotco.us>
+pkgname=trammel
+pkgver=v2.5
+pkgrel=1
+pkgdesc="A multiplatform Java basedfree HOSTS file manager"
+arch=('any')
+url="https://github.com/SpotComms/Trammel"
+license=('MIT')
+depends=('java-runtime>=8')
+source=($url/releases/download/$pkgver/$pkgname.jar $pkgname.desktop $pkgname-root.desktop $pkgname.png)
+md5sums=('e1f8dff87110521011e290110d6266cf' 'd487927ee16f6d9db1a9a02c9dea7344' '0caf5fea42ba7c16e35dfa937de1b395' '11cfc0d232929ae9ec21486e32c479c5')
+
+build() {
+  /bin/true
+}
+
+package() {
+  cd "$srcdir"
+  install -Dm644 $pkgname.jar "$pkgdir/usr/share/java/$pkgname/$pkgname.jar"
+  install -Dm644 $pkgname.desktop "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -Dm644 $pkgname-root.desktop "$pkgdir/usr/share/applications/$pkgname-root.desktop"
+  install -Dm644 $pkgname.png "$pkgdir/usr/share/pixmaps/$pkgname.png"
+}

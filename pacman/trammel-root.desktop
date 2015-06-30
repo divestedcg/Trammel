@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Exec=/usr/bin/gksu "java -jar /usr/share/java/Trammel/Trammel.jar"
+Icon=trammel
+Categories=Utility;
+Name=Trammel (as root)
+Comment=A multiplatform Java based HOSTS file manager

@@ -164,7 +164,7 @@ public class Utils {
             Scanner fileIn = new Scanner(in);
             while (fileIn.hasNext()) {
                 String line = fileIn.nextLine();
-                if (!line.contains("#"))
+                if (!line.startsWith("#"))
                     out.add(line);
             }
         } catch (Exception e) {
@@ -196,7 +196,7 @@ public class Utils {
             }
             while (fileIn.hasNext()) {
                 String line = fileIn.nextLine();
-                if (!line.contains("#") && !line.trim().equals("")) {//Skip if line is a comment or is blank
+                if (!line.startsWith("#") && !line.trim().equals("")) {//Skip if line is a comment or is blank
                     Pattern pattern = Pattern.compile(hostnameRegex);//Only look for hostnames in a string
                     Matcher matcher = pattern.matcher(line);//Apply the pattern to the string
                     if (matcher.find()) {//Check if the string meets our requirements

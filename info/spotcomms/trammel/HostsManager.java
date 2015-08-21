@@ -120,16 +120,21 @@ public class HostsManager {
                     }
                     break;
                 case 1:
-                    if (optimizeWWW)
-                        for (String domain : arrDomainsNew)
-                            if (domain.startsWith("www."))
-                                arrOut.add(domain.split("www.")[1]);
-                            else
+                    if(optimizeWWW) {
+                        for(String domain : arrDomainsNew) {
+                            if(domain.startsWith("www.")) {
+                                arrOut.add(domain.split("www.")[0]);
+                            } else {
                                 arrOut.add(domain);
-                    else
+                            }
+                        }
+                    } else
                         arrOut.addAll(arrDomainsNew);
                     break;
             }
+            ArrayList<String> arrOutNew = new ArrayList<String>();
+            arrOutNew.addAll(arrOut);
+            Collections.sort(arrOutNew);
             fleOutput.renameTo(fleOutputOld);
             PrintWriter writer = new PrintWriter(fleOutput, "UTF-8");
             if (format == 0) {
@@ -137,7 +142,7 @@ public class HostsManager {
                     writer.println(line);
                 }
             }
-            for (String line : arrOut) {
+            for (String line : arrOutNew) {
                 writer.println(line);
             }
             writer.close();

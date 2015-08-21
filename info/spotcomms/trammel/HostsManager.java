@@ -33,7 +33,7 @@ public class HostsManager {
     private File fleBlocklists = new File(dirConfigs, "blocklists.conf");
     private ArrayList<String> arrBlocklists;
     private Set<String> arrDomains = new HashSet<String>();
-    private ArrayList<String> arrOut = new ArrayList<String>();
+    private Set<String> arrOut = new HashSet<String>();
     private boolean cache;
     private boolean optimizeHosts;
     private boolean optimizeIPs;
@@ -120,10 +120,12 @@ public class HostsManager {
                     }
                     break;
                 case 1:
-                    if(optimizeWWW)
-                        for(String s : arrDomainsNew)
-                            if(!s.startsWith("www."))
-                                arrOut.add(s);
+                    if (optimizeWWW)
+                        for (String domain : arrDomainsNew)
+                            if (domain.startsWith("www."))
+                                arrOut.add(domain.split("www.")[1]);
+                            else
+                                arrOut.add(domain);
                     else
                         arrOut.addAll(arrDomainsNew);
                     break;

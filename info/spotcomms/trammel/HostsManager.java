@@ -37,6 +37,7 @@ public class HostsManager {
     private boolean cache;
     private boolean optimizeHosts;
     private boolean optimizeIPs;
+    private boolean optimizeWWW;
     private int format;
     private File fleOutput;
     private File fleOutputOld;
@@ -45,10 +46,11 @@ public class HostsManager {
 
     }
 
-    public HostsManager(boolean cache, boolean optimizeHosts, boolean optimizeIPs, int format, File fleOutput) {
+    public HostsManager(boolean cache, boolean optimizeHosts, boolean optimizeIPs, boolean optimizeWWW, int format, File fleOutput) {
         this.cache = cache;
         this.optimizeHosts = optimizeHosts;
         this.optimizeIPs = optimizeIPs;
+        this.optimizeWWW = optimizeWWW;
         this.format = format;
         this.fleOutput = fleOutput;
         fleOutputOld = new File(fleOutput + ".bak");
@@ -117,8 +119,13 @@ public class HostsManager {
                                 arrOut.add("127.0.0.1 " + domain);
                     }
                     break;
-                case 1://Optimizations aren't allowed for domains only
-                    arrOut.addAll(arrDomainsNew);
+                case 1:
+                    if(optimizeWWW)
+                        for(String s : arrDomainsNew)
+                            if(!s.startsWith("www."))
+                                arrOut.add(s);
+                    else
+                        arrOut.addAll(arrDomainsNew);
                     break;
             }
             fleOutput.renameTo(fleOutputOld);

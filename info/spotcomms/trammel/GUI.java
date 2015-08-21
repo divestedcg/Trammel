@@ -34,6 +34,7 @@ public class GUI extends JFrame implements ActionListener {
     private JButton btnGenerate;
     private JButton btnRollback;
     private JButton btnReset;
+    private JCheckBox chkOptimizeWWW;
     private boolean running = false;
     private boolean finished = false;
 
@@ -101,10 +102,12 @@ public class GUI extends JFrame implements ActionListener {
                 case 0:
                     chkOptimizeHosts.setEnabled(true);
                     chkOptimizeIPs.setEnabled(true);
+                    chkOptimizeWWW.setEnabled(false);
                     break;
                 case 1:
                     chkOptimizeHosts.setEnabled(false);
                     chkOptimizeIPs.setEnabled(false);
+                    chkOptimizeWWW.setEnabled(true);
                     utils.showAlert("Hosts Manager", "You MUST change the output file for this format or risk breaking network connectivity", JOptionPane.WARNING_MESSAGE);
                     break;
             }
@@ -114,7 +117,7 @@ public class GUI extends JFrame implements ActionListener {
             btnGenerate.setEnabled(false);
             btnRollback.setEnabled(false);
             btnReset.setEnabled(false);
-            new HostsManager(chkCacheLists.isSelected(), chkOptimizeHosts.isSelected() && chkOptimizeHosts.isEnabled(), chkOptimizeIPs.isSelected() && chkOptimizeIPs.isEnabled(), drpFormat.getSelectedIndex(), new File("" + drpLocation.getSelectedItem())).update();
+            new HostsManager(chkCacheLists.isSelected(), chkOptimizeHosts.isSelected() && chkOptimizeHosts.isEnabled(), chkOptimizeIPs.isSelected() && chkOptimizeIPs.isEnabled(), chkOptimizeWWW.isSelected() && chkOptimizeWWW.isEnabled(), drpFormat.getSelectedIndex(), new File("" + drpLocation.getSelectedItem())).update();
             btnGenerate.setText("Generate");
             btnGenerate.setEnabled(true);
             btnRollback.setEnabled(true);
@@ -125,7 +128,7 @@ public class GUI extends JFrame implements ActionListener {
             btnGenerate.setEnabled(false);
             btnRollback.setEnabled(false);
             btnReset.setEnabled(false);
-            new HostsManager(chkCacheLists.isSelected(), chkOptimizeHosts.isSelected() && chkOptimizeHosts.isEnabled(), chkOptimizeIPs.isSelected() && chkOptimizeIPs.isEnabled(), drpFormat.getSelectedIndex(), new File("" + drpLocation.getSelectedItem())).rollback();
+            new HostsManager(chkCacheLists.isSelected(), chkOptimizeHosts.isSelected() && chkOptimizeHosts.isEnabled(), chkOptimizeIPs.isSelected() && chkOptimizeIPs.isEnabled(), chkOptimizeWWW.isSelected() && chkOptimizeWWW.isEnabled(), drpFormat.getSelectedIndex(), new File("" + drpLocation.getSelectedItem())).rollback();
             btnRollback.setText("Rollback");
             btnGenerate.setEnabled(true);
             btnRollback.setEnabled(true);
@@ -136,7 +139,7 @@ public class GUI extends JFrame implements ActionListener {
             btnGenerate.setEnabled(false);
             btnRollback.setEnabled(false);
             btnReset.setEnabled(false);
-            new HostsManager(chkCacheLists.isSelected(), chkOptimizeHosts.isSelected() && chkOptimizeHosts.isEnabled(), chkOptimizeIPs.isSelected() && chkOptimizeIPs.isEnabled(), drpFormat.getSelectedIndex(), new File("" + drpLocation.getSelectedItem())).reset();
+            new HostsManager(chkCacheLists.isSelected(), chkOptimizeHosts.isSelected() && chkOptimizeHosts.isEnabled(), chkOptimizeIPs.isSelected() && chkOptimizeIPs.isEnabled(), chkOptimizeWWW.isSelected() && chkOptimizeWWW.isEnabled(), drpFormat.getSelectedIndex(), new File("" + drpLocation.getSelectedItem())).reset();
             btnReset.setText("Reset");
             btnGenerate.setEnabled(true);
             btnRollback.setEnabled(true);
@@ -198,7 +201,7 @@ public class GUI extends JFrame implements ActionListener {
         btnClearCache.setToolTipText("Delete all the currently cached files");
         panel3.add(btnClearCache, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel4 = new JPanel();
-        panel4.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel4.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel2.add(panel4, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         panel4.setBorder(BorderFactory.createTitledBorder("Optimizations"));
         chkOptimizeIPs = new JCheckBox();
@@ -210,6 +213,9 @@ public class GUI extends JFrame implements ActionListener {
         chkOptimizeHosts.setSelected(false);
         chkOptimizeHosts.setText("Allow multiple hosts per line");
         panel4.add(chkOptimizeHosts, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        chkOptimizeWWW = new JCheckBox();
+        chkOptimizeWWW.setText("Remove www.*");
+        panel4.add(chkOptimizeWWW, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel5 = new JPanel();
         panel5.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel2.add(panel5, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));

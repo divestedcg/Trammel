@@ -67,24 +67,28 @@ public class Utils {
             });
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert("Hosts Manager", e.getMessage(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void downloadFile(String url, Path out, boolean useCache) {
         try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setConnectTimeout(45000);
+            connection.setReadTimeout(45000);
+            connection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:6.0) Gecko/20100101 Firefox/19.0");
             if (useCache && out.toFile().exists()) {
-                HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-                connection.addRequestProperty("User-Agent", "Mozilla/5.0 Gecko Firefox");
                 connection.setIfModifiedSince(out.toFile().lastModified());
-                connection.connect();
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_NOT_MODIFIED)
-                    Files.copy(new URL(url).openStream(), out, StandardCopyOption.REPLACE_EXISTING);
-                connection.disconnect();
-            } else {
-                Files.copy(new URL(url).openStream(), out, StandardCopyOption.REPLACE_EXISTING);
             }
+            connection.connect();
+            int res = connection.getResponseCode();
+            if (res != 304 && (res == 200 || res == 301 || res == 302)) {
+                Files.copy(connection.getInputStream(), out, StandardCopyOption.REPLACE_EXISTING);
+            }
+            connection.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert("Hosts Manager", "Failed to download " + url, JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -132,6 +136,7 @@ public class Utils {
                 return "Windows";
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert("Hosts Manager", e.getMessage(), JOptionPane.ERROR_MESSAGE);
         }
         return "Unknown";
     }
@@ -169,6 +174,7 @@ public class Utils {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert("Hosts Manager", e.getMessage(), JOptionPane.ERROR_MESSAGE);
         }
         return out;
     }
@@ -209,6 +215,7 @@ public class Utils {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert("Hosts Manager", e.getMessage(), JOptionPane.ERROR_MESSAGE);
         }
         return out;
     }

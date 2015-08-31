@@ -120,9 +120,9 @@ public class HostsManager {
                     }
                     break;
                 case 1:
-                    if(optimizeWWW) {
-                        for(String domain : arrDomainsNew) {
-                            if(domain.startsWith("www.") && domain.split("\\.").length == 3) {
+                    if (optimizeWWW) {
+                        for (String domain : arrDomainsNew) {
+                            if (domain.startsWith("www.") && domain.split("\\.").length == 3) {
                                 arrOut.add(domain.split("www.")[0]);
                             } else {
                                 arrOut.add(domain);

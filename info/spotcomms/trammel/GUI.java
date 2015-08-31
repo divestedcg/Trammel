@@ -64,16 +64,32 @@ public class GUI extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnConfigureHeader) {
-            Editor txtEditor = new Editor("Header", new File(utils.getConfigDir(), "header.conf"));
+            try {
+                Desktop.getDesktop().edit(new File(utils.getConfigDir(), "header.conf"));
+            } catch (Exception e1) {
+                Editor txtEditor = new Editor("Header", new File(utils.getConfigDir(), "header.conf"));
+            }
         }
         if (e.getSource() == btnConfigureWhitelist) {
-            Editor txtEditor = new Editor("Whitelist", new File(utils.getConfigDir(), "whitelist.conf"));
+            try {
+                Desktop.getDesktop().edit(new File(utils.getConfigDir(), "whitelist.conf"));
+            } catch (Exception e1) {
+                Editor txtEditor = new Editor("Whitelist", new File(utils.getConfigDir(), "whitelist.conf"));
+            }
         }
         if (e.getSource() == btnConfigureBlacklist) {
-            Editor txtEditor = new Editor("Blacklist", new File(utils.getConfigDir(), "blacklist.conf"));
+            try {
+                Desktop.getDesktop().edit(new File(utils.getConfigDir(), "blacklist.conf"));
+            } catch (Exception e1) {
+                Editor txtEditor = new Editor("Blacklist", new File(utils.getConfigDir(), "blacklist.conf"));
+            }
         }
         if (e.getSource() == btnConfigureBlocklists) {
-            Editor txtEditor = new Editor("Blocklists", new File(utils.getConfigDir(), "blocklists.conf"));
+            try {
+                Desktop.getDesktop().edit(new File(utils.getConfigDir(), "blocklists.conf"));
+            } catch (Exception e1) {
+                Editor txtEditor = new Editor("Blocklists", new File(utils.getConfigDir(), "blocklists.conf"));
+            }
         }
         if (e.getSource() == chkCacheLists) {
             btnClearCache.setEnabled(chkCacheLists.isSelected());

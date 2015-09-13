@@ -81,7 +81,7 @@ Credits
 -------
 - Zip4j: http://www.lingala.net/zip4j/
 - Icon: ic8.link/10484
-- Apache Commons Compress: https://commons.apache.org/proper/commons-compress/index.html
+- 7-Zip-JBinding: http://sevenzipjbind.sourceforge.net/
 - http://fahdshariff.blogspot.ru/2011/08/java-7-deleting-directory-by-walking.html
 - http://stackoverflow.com/a/1418724
 - http://stackoverflow.com/a/14656534

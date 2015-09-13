@@ -20,6 +20,15 @@ Recommended Lists
 Blocklists | Blocked
 ---------- | -------
 http://adblock.gjtech.net/?format=unix-hosts | Ads
+https://spotco.us/blocklists/Cyanogen.txt | Analytics/Tracking
+https://spotco.us/blocklists/Disconnect.txt | Ads/Analytics/Tracking (Credit: Disconnect)
+https://spotco.us/blocklists/Microsoft.txt | Ads/Analytics/Tracking - May break things
+https://spotco.us/blocklists/Misc.txt | Ads/Analytics/Misc/Tracking
+https://spotco.us/blocklists/Mobile.txt | Ads/Analytics/Malware/Misc/Scam/Spam/Tracking (Partial Credit: Ad-Away, G&J Tech)
+https://spotco.us/blocklists/Mozilla.txt | Ads/Analytics/Misc/Tracking
+https://spotco.us/blocklists/Scams.txt | Malware/Misc/Phishing/Scam/Spam
+https://spotco.us/blocklists/Spam404.txt | Malware/Misc/Phishing/Scam/Spam (Credit: Spam404)
+https://spotco.us/blocklists/Toxic.txt | Misc
 http://hosts.eladkarako.com/hosts.txt | Ads
 http://hostsfile.mine.nu/Hosts.zip | Ads - Outdated
 http://hosts-file.net/ad_servers.txt | Ads

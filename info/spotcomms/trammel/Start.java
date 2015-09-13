@@ -4,6 +4,9 @@
 
 package info.spotcomms.trammel;
 
+import net.sf.sevenzipjbinding.SevenZip;
+import net.sf.sevenzipjbinding.SevenZipNativeInitializationException;
+
 import javax.swing.*;
 
 /**
@@ -18,6 +21,11 @@ public class Start {
         Utils utils = new Utils();
         if (!utils.getConfigDir().exists()) {
             new HostsManager().generateDefaults();
+        }
+        try {
+            SevenZip.initSevenZipFromPlatformJAR();
+        } catch (SevenZipNativeInitializationException e) {
+            e.printStackTrace();
         }
         if (args.length > 0) {
             Console c = new Console(args);

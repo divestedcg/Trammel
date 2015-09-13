@@ -6,11 +6,13 @@ package info.spotcomms.trammel;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.model.FileHeader;
+import net.sf.sevenzipjbinding.*;
+import net.sf.sevenzipjbinding.impl.RandomAccessFileInStream;
+import net.sf.sevenzipjbinding.simple.ISimpleInArchive;
+import net.sf.sevenzipjbinding.simple.ISimpleInArchiveItem;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.*;
@@ -147,6 +149,8 @@ public class Utils {
             extension = ".zip";
         else if (url.contains("gz"))
             extension = ".gz";
+        else if (url.contains("7z"))
+            extension = ".7z";
         return extension;
     }
 
@@ -185,6 +189,39 @@ public class Utils {
             Scanner fileIn = null;
             if (identifyFileType(in.toString()).contains(".txt")) {//Plain text
                 fileIn = new Scanner(in);
+            }
+            if (identifyFileType(in.toString()).contains(".7z")) {//Decompress 7z
+                RandomAccessFile newFile = new RandomAccessFile(in, "r");
+                ISevenZipInArchive compressedList = SevenZip.openInArchive(null, new RandomAccessFileInStream(newFile));
+                ISimpleInArchive compressedListNew = compressedList.getSimpleInterface();
+                for (ISimpleInArchiveItem file : compressedListNew.getArchiveItems()) {
+                    String fileName = file.getPath();
+                    if (fileName.contains("/")) {
+                        fileName = fileName.split("/")[fileName.split("/").length - 1];
+                    }
+                    if (fileName.equalsIgnoreCase("hosts") || fileName.startsWith("hosts") || fileName.startsWith("HOSTS") || fileName.startsWith("Hosts")) {
+                        File newFileOutPath = new File(getConfigDir() + "/tmp/" + "7ztmp");
+                        newFileOutPath.mkdirs();
+                        if (newFileOutPath.exists()) {
+                            System.gc();
+                            newFileOutPath.delete();
+                        }
+                        ExtractOperationResult result = file.extractSlow(new ISequentialOutStream() {
+                            public int write(byte[] data) throws SevenZipException {
+                                try {
+                                    FileOutputStream newFileOut = new FileOutputStream(newFileOutPath);
+                                    newFileOut.write(data);
+                                    newFileOut.close();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                return data.length;
+                            }
+                        });
+                        fileIn = new Scanner(newFileOutPath);
+                        break;
+                    }
+                }
             }
             if (identifyFileType(in.toString()).contains(".zip")) {//Decompress ZIP
                 //Credit: http://stackoverflow.com/a/14656534 and http://stackoverflow.com/a/18974782

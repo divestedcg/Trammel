@@ -108,7 +108,7 @@
                 </constraints>
                 <properties>
                   <selected value="true"/>
-                  <text value="Replace 127.0.0.1 with 0.0.0.0"/>
+                  <text value="Replace 0.0.0.0 with just 0"/>
                 </properties>
               </component>
               <component id="60445" class="javax.swing.JCheckBox" binding="chkOptimizeHosts">

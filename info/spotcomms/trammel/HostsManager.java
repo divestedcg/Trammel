@@ -97,14 +97,14 @@ public class HostsManager {
                             if (x == (arrDomainsNew.size() - 1)) {
                                 line += domain;
                                 if (optimizeIPs)
-                                    arrOut.add("0.0.0.0 " + line);
+                                    arrOut.add("0 " + line);
                                 else
-                                    arrOut.add("127.0.0.1 " + line);
+                                    arrOut.add("0.0.0.0 " + line);
                             } else if (line.split(" ").length >= 5) {
                                 if (optimizeIPs)
-                                    arrOut.add("0.0.0.0 " + line);
+                                    arrOut.add("0 " + line);
                                 else
-                                    arrOut.add("127.0.0.1 " + line);
+                                    arrOut.add("0.0.0.0 " + line);
                                 line = domain + " ";
                             } else {
                                 line += domain + " ";

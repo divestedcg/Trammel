@@ -149,6 +149,8 @@ public class Utils {
             extension = ".zip";
         else if (url.contains("gz"))
             extension = ".gz";
+        else if (url.contains("7zip"))
+            extension = ".7z";
         else if (url.contains("7z"))
             extension = ".7z";
         return extension;
@@ -229,7 +231,7 @@ public class Utils {
                 ArrayList compressedFiles = (ArrayList) compressedList.getFileHeaders();
                 for (Object file : compressedFiles) {
                     FileHeader newFile = (FileHeader) file;
-                    if (newFile.getFileName().equalsIgnoreCase("hosts") || newFile.getFileName().startsWith("hosts")) {
+                    if (newFile.getFileName().equalsIgnoreCase("hosts") || newFile.getFileName().startsWith("hosts") || newFile.getFileName().startsWith("HOSTS") || newFile.getFileName().startsWith("Hosts")) {
                         fileIn = new Scanner(compressedList.getInputStream(newFile));
                     }
                 }

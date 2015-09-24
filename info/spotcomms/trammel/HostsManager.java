@@ -113,10 +113,10 @@ public class HostsManager {
                     } else {
                         if (optimizeIPs)
                             for (String domain : arrDomainsNew)
-                                arrOut.add("0.0.0.0 " + domain);
+                                arrOut.add("0 " + domain);
                         else
                             for (String domain : arrDomainsNew)
-                                arrOut.add("127.0.0.1 " + domain);
+                                arrOut.add("0.0.0.0 " + domain);
                     }
                     break;
                 case 1:

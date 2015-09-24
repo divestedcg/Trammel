@@ -1,6 +1,6 @@
 # Maintainer: Tad D <tad@spotco.us>
 pkgname=trammel
-pkgver=v3.0
+pkgver=v3.0.1
 pkgrel=1
 pkgdesc="A multiplatform Java based HOSTS file manager"
 arch=('any')
@@ -8,7 +8,7 @@ url="https://github.com/SpotComms/Trammel"
 license=('MIT')
 depends=('java-runtime>=8')
 source=($url/releases/download/$pkgver/$pkgname.jar $pkgname.desktop $pkgname-root.desktop $pkgname.png)
-md5sums=('d951f74590e510159009e6430418662b' 'ab8ea54455891dbacee20b8315b4e786' 'b90e1c6d30c8789c26db1c57a5c80d0c' '11cfc0d232929ae9ec21486e32c479c5')
+md5sums=('b6e0ce86b36eba0d01e1beacbcede285' 'ab8ea54455891dbacee20b8315b4e786' 'b90e1c6d30c8789c26db1c57a5c80d0c' '11cfc0d232929ae9ec21486e32c479c5')
 
 build() {
   /bin/true

@@ -222,7 +222,7 @@ public class GUI extends JFrame implements ActionListener {
         panel4.setBorder(BorderFactory.createTitledBorder("Optimizations"));
         chkOptimizeIPs = new JCheckBox();
         chkOptimizeIPs.setSelected(true);
-        chkOptimizeIPs.setText("Replace 127.0.0.1 with 0.0.0.0");
+        chkOptimizeIPs.setText("Replace 0.0.0.0 with just 0");
         panel4.add(chkOptimizeIPs, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         chkOptimizeHosts = new JCheckBox();
         chkOptimizeHosts.setEnabled(true);

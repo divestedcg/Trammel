@@ -33,6 +33,7 @@ Malware | https://s3.amazonaws.com/lists.disconnect.me/simple_malware.txt
 Analytics/Tracking | https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
 Analytics/Tracking | https://spotco.us/blocklists/Cyanogen.txt
 Ads/Analytics/Tracking (Credit: Disconnect) | https://spotco.us/blocklists/Disconnect.txt
+Ads/Analytics/Tracking | https://spotco.us/blocklists/Experimental.txt
 Ads/Analytics/Tracking - May break things | https://spotco.us/blocklists/Microsoft.txt
 Ads/Analytics/Misc/Tracking | https://spotco.us/blocklists/Misc.txt
 Ads/Analytics/Malware/Misc/Scam/Spam/Tracking (Partial Credit: Ad-Away, G&J Tech) | https://spotco.us/blocklists/Mobile.txt
@@ -43,6 +44,29 @@ Misc | https://spotco.us/blocklists/Toxic.txt
 Ads | http://sysctl.org/cameleon/hosts
 Malware | https://zeustracker.abuse.ch/blocklist.php?download=baddomains
 Malware | http://www.malwaredomainlist.com/hostslist/hosts.txt
+Malware | http://osint.bambenekconsulting.com/feeds/banjori-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/bebloh-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/bedep-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/c2-dommasterlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/cl-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/cryptowall-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/dga-feed.txt
+Malware | http://osint.bambenekconsulting.com/feeds/dircrypt-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/dyre-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/geodo-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/hesperbot-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/matsnu-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/necurs-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/p2pgoz-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/ptgoz-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/pushdo-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/qakbot-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/ramnit-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/simda-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/suppobox-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/symmi-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/tinba-domlist.txt
+Malware | http://osint.bambenekconsulting.com/feeds/volatile-domlist.txt
 Ads/Analytics/Malware/Misc/Spam/Tracking | http://www.winhelp2002.mvps.org/hosts.txt
 
 
@@ -60,5 +84,6 @@ Lists Requiring Manual Parsing
 
 Description | URL
 -------- | --------
+Malware/Misc/Spam | https://openphish.com/feed.txt
 Various | http://www.shallalist.de
 Various (Paid) | http://urlblacklist.com

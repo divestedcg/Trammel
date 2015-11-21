@@ -79,6 +79,7 @@ public class HostsManager {
             for (String url : arrBlocklists) {
                 File out = new File(dirCache, utils.byteArrayToHexString(MessageDigest.getInstance("MD5").digest(url.getBytes("utf-8"))) + utils.identifyFileType(url));
                 utils.downloadFile(url, out.toPath(), cache);
+                System.out.println(url + "\n" + out);
                 arrDomains.addAll(utils.readHostsFileIntoArray(out));
             }
             arrDomains.addAll(arrBlacklist);

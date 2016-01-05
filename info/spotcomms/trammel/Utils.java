@@ -34,7 +34,8 @@ import java.util.zip.GZIPInputStream;
 public class Utils {
 
     String ipAddressRegex = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))";//Credit: http://stackoverflow.com/a/5667402
-    String hostnameRegex = "(?:(?:(?:(?:[a-zA-Z0-9][-a-zA-Z0-9]{0,61})?[a-zA-Z0-9])[.])*(?:[a-zA-Z][-a-zA-Z0-9]{0,61}[a-zA-Z0-9]|[a-zA-Z])[.]?)";//Credit: http://stackoverflow.com/a/1418724
+    //String hostnameRegex = "(?:(?:(?:(?:[a-zA-Z0-9][-a-zA-Z0-9]{0,61})?[a-zA-Z0-9])[.])*(?:[a-zA-Z][-a-zA-Z0-9]{0,61}[a-zA-Z0-9]|[a-zA-Z])[.]?)";//Credit: http://stackoverflow.com/a/1418724
+    static String hostnameRegex = "^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$";//Credit: http://www.mkyong.com/regular-expressions/domain-name-regular-expression-example/
 
     //Credit: http://stackoverflow.com/a/4895572
     public static String byteArrayToHexString(byte[] b) {
@@ -243,11 +244,15 @@ public class Utils {
                 String line = fileIn.nextLine();
                 if (!line.startsWith("#") && !line.trim().equals("")) {//Skip if line is a comment or is blank
                     Pattern pattern = Pattern.compile(hostnameRegex);//Only look for hostnames in a string
-                    Matcher matcher = pattern.matcher(line);//Apply the pattern to the string
-                    if (matcher.find()) {//Check if the string meets our requirements
-                        String hostname = matcher.group();
-                        if (hostname.contains(".") && hostname.length() >= 4 && !hostname.equals("www.")) {//Extra checks
+                    line = line.replaceAll(".*\\://", "").replaceAll("/", "");
+                    String[] spaceSplit = line.replaceAll("\\s","~").split("~");
+                    Matcher matcher = null;
+                    for(int x = 0; x < spaceSplit.length; x++) {
+                        matcher = pattern.matcher(spaceSplit[x]);//Apply the pattern to the string
+                        if (matcher.find()) {//Check if the string meets our requirements
                             out.add(matcher.group());
+                        } else if(spaceSplit[x].contains("xn--")) {
+                            out.add(spaceSplit[x]);//Sssssh, its okay
                         }
                     }
                 }

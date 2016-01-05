@@ -55,8 +55,8 @@ public class HostsManager {
         this.fleOutput = fleOutput;
         fleOutputOld = new File(fleOutput + ".bak");
         arrHeader = utils.readFileIntoArray(fleHeader);
-        arrWhitelist = utils.readFileIntoArray(fleWhitelist);
-        arrBlacklist = utils.readFileIntoArray(fleBlacklist);
+        arrWhitelist = utils.readHostsFileIntoArray(fleWhitelist);
+        arrBlacklist = utils.readHostsFileIntoArray(fleBlacklist);
         arrBlocklists = utils.readFileIntoArray(fleBlocklists);
     }
 

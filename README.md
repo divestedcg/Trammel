@@ -41,3 +41,4 @@ Credits
 - http://stackoverflow.com/a/23538961
 - http://stackoverflow.com/a/4895572
 - http://stackoverflow.com/a/5667402
+- http://www.mkyong.com/regular-expressions/domain-name-regular-expression-example/

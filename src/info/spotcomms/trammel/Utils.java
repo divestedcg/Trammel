@@ -195,14 +195,14 @@ public class Utils {
             }
             if (identifyFileType(in.toString()).contains(".7z")) {//Decompress 7z
                 RandomAccessFile newFile = new RandomAccessFile(in, "r");
-                ISevenZipInArchive compressedList = SevenZip.openInArchive(null, new RandomAccessFileInStream(newFile));
+                IInArchive compressedList = SevenZip.openInArchive(null, new RandomAccessFileInStream(newFile));
                 ISimpleInArchive compressedListNew = compressedList.getSimpleInterface();
                 for (ISimpleInArchiveItem file : compressedListNew.getArchiveItems()) {
                     String fileName = file.getPath();
                     if (fileName.contains("/")) {
                         fileName = fileName.split("/")[fileName.split("/").length - 1];
                     }
-                    if (fileName.equalsIgnoreCase("hosts") || fileName.startsWith("hosts") || fileName.startsWith("HOSTS") || fileName.startsWith("Hosts")) {
+                    if (fileName.equalsIgnoreCase("hosts") || fileName.startsWith("hosts") || fileName.startsWith("HOSTS") || fileName.startsWith("Hosts") || fileName.equals("Hosts.rsk") || fileName.equals("Hosts.pub") || fileName.equals("Hosts.trc")) {
                         File newFileOutPath = new File(getConfigDir() + "/tmp/" + "7ztmp");
                         newFileOutPath.mkdirs();
                         if (newFileOutPath.exists()) {
@@ -240,8 +240,9 @@ public class Utils {
             if (identifyFileType(in.toString()).contains(".gz")) {//Decompress GunZip
                 fileIn = new Scanner(new GZIPInputStream(new FileInputStream(in)));
             }
+            int c = 0;
             while (fileIn.hasNext()) {
-                String line = fileIn.nextLine();
+                String line = fileIn.nextLine().toLowerCase();
                 if (!line.startsWith("#") && !line.trim().equals("")) {//Skip if line is a comment or is blank
                     Pattern pattern = Pattern.compile(hostnameRegex);//Only look for hostnames in a string
                     line = line.replaceAll(".*\\://", "").replaceAll("/", "");
@@ -251,8 +252,10 @@ public class Utils {
                         matcher = pattern.matcher(spaceSplit[x]);//Apply the pattern to the string
                         if (matcher.find()) {//Check if the string meets our requirements
                             out.add(matcher.group());
+                            c++;
                         } else if(spaceSplit[x].contains("xn--")) {
                             out.add(spaceSplit[x]);//Sssssh, its okay
+                            c++;
                         }
                     }
                 }

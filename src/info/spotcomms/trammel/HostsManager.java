@@ -79,13 +79,18 @@ public class HostsManager {
             for (String url : arrBlocklists) {
                 File out = new File(dirCache, utils.byteArrayToHexString(MessageDigest.getInstance("MD5").digest(url.getBytes("utf-8"))) + utils.identifyFileType(url));
                 utils.downloadFile(url, out.toPath(), cache);
-                System.out.println(url + "\n" + out);
-                arrDomains.addAll(utils.readHostsFileIntoArray(out));
+                int preAddCount = arrDomains.size();
+                ArrayList<String> toAdd = utils.readHostsFileIntoArray(out);
+                arrDomains.addAll(toAdd);
+                System.out.println("Added " + (arrDomains.size() - preAddCount) + "/" + toAdd.size() + " domains from " + url);
             }
             arrDomains.addAll(arrBlacklist);
+            int c = 0;
             for (String domain : arrWhitelist) {
                 arrDomains.remove(domain);
+                c++;
             }
+            System.out.println("Removed " + c + " whitelisted domains");
             ArrayList<String> arrDomainsNew = new ArrayList<String>();
             arrDomainsNew.addAll(arrDomains);
             Collections.sort(arrDomainsNew);

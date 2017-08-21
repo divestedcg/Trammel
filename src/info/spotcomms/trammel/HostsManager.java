@@ -79,7 +79,7 @@ public class HostsManager {
         try {
             for (String url : arrBlocklists) {
                 url = url.split(",")[0];
-                File out = new File(dirCache, utils.byteArrayToHexString(MessageDigest.getInstance("MD5").digest(url.getBytes("utf-8"))) + utils.identifyFileType(url));
+                File out = new File(dirCache, Utils.byteArrayToHexString(MessageDigest.getInstance("MD5").digest(url.getBytes("utf-8"))) + utils.identifyFileType(url));
                 utils.downloadFile(url, out.toPath(), cache);
                 int preAddCount = arrDomains.size();
                 ArrayList<String> toAdd = utils.readHostsFileIntoArray(out);

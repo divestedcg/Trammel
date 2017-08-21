@@ -18,21 +18,21 @@ import java.util.*;
  * Date: 6/9/15
  * Time; 7:56 PM
  */
-public class HostsManager {
+class HostsManager {
 
-    private Utils utils = new Utils();
-    private File dirConfigs = utils.getConfigDir();
-    private File dirCache = new File(dirConfigs, "cache");
-    private File fleHeader = new File(dirConfigs, "header.conf");
+    private final Utils utils = new Utils();
+    private final File dirConfigs = utils.getConfigDir();
+    private final File dirCache = new File(dirConfigs, "cache");
+    private final File fleHeader = new File(dirConfigs, "header.conf");
     private ArrayList<String> arrHeader;
-    private File fleWhitelist = new File(dirConfigs, "whitelist.conf");
+    private final File fleWhitelist = new File(dirConfigs, "whitelist.conf");
     private ArrayList<String> arrWhitelist;
-    private File fleBlacklist = new File(dirConfigs, "blacklist.conf");
+    private final File fleBlacklist = new File(dirConfigs, "blacklist.conf");
     private ArrayList<String> arrBlacklist;
-    private File fleBlocklists = new File(dirConfigs, "blocklists.conf");
+    private final File fleBlocklists = new File(dirConfigs, "blocklists.conf");
     private ArrayList<String> arrBlocklists;
-    private Set<String> arrDomains = new HashSet<String>();
-    private Set<String> arrOut = new HashSet<String>();
+    private final Set<String> arrDomains = new HashSet<>();
+    private final Set<String> arrOut = new HashSet<>();
     private boolean cache;
     private boolean optimizeHosts;
     private boolean optimizeIPs;
@@ -93,29 +93,29 @@ public class HostsManager {
                 c++;
             }
             System.out.println("Removed " + c + " whitelisted domains");
-            ArrayList<String> arrDomainsNew = new ArrayList<String>();
+            ArrayList<String> arrDomainsNew = new ArrayList<>();
             arrDomainsNew.addAll(arrDomains);
             Collections.sort(arrDomainsNew);
             switch (format) {
                 case 0:
                     if (optimizeHosts) {
-                        String line = "";
+                        StringBuilder line = new StringBuilder();
                         for (int x = 0; x < arrDomainsNew.size(); x++) {
                             String domain = arrDomainsNew.get(x);
                             if (x == (arrDomainsNew.size() - 1)) {
-                                line += domain;
+                                line.append(domain);
                                 if (optimizeIPs)
                                     arrOut.add("0 " + line);
                                 else
                                     arrOut.add("0.0.0.0 " + line);
-                            } else if (line.split(" ").length >= 5) {
+                            } else if (line.toString().split(" ").length >= 5) {
                                 if (optimizeIPs)
                                     arrOut.add("0 " + line);
                                 else
                                     arrOut.add("0.0.0.0 " + line);
-                                line = domain + " ";
+                                line = new StringBuilder(domain + " ");
                             } else {
-                                line += domain + " ";
+                                line.append(domain).append(" ");
                             }
                         }
                     } else {
@@ -140,7 +140,7 @@ public class HostsManager {
                         arrOut.addAll(arrDomainsNew);
                     break;
             }
-            ArrayList<String> arrOutNew = new ArrayList<String>();
+            ArrayList<String> arrOutNew = new ArrayList<>();
             arrOutNew.addAll(arrOut);
             Collections.sort(arrOutNew);
             fleOutput.renameTo(fleOutputOld);

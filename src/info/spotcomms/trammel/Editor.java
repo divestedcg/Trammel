@@ -6,8 +6,6 @@ package info.spotcomms.trammel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -40,16 +38,14 @@ public class Editor extends JFrame {
             e.printStackTrace();
         }
 
-        btnSave.addActionListener(new ActionListener() {
-            @Override public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    PrintWriter writer = new PrintWriter(fleIn, "UTF-8");
-                    writer.write(txtEditor.getText());
-                    writer.close();
-                    dispose();
-                } catch (Exception z) {
-                    z.printStackTrace();
-                }
+        btnSave.addActionListener(actionEvent -> {
+            try {
+                PrintWriter writer = new PrintWriter(fleIn, "UTF-8");
+                writer.write(txtEditor.getText());
+                writer.close();
+                dispose();
+            } catch (Exception z) {
+                z.printStackTrace();
             }
         });
     }

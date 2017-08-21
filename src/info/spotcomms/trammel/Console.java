@@ -10,7 +10,7 @@ package info.spotcomms.trammel;
  * Date: 6/9/15
  * Time; 1:09 PM
  */
-public class Console {
+class Console {
 
     public Console(String[] launchArgs) {
         System.out.println("========================= Trammel =========================");//Banner

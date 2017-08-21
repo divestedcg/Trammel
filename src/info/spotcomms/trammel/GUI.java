@@ -19,7 +19,7 @@ import java.io.File;
  */
 public class GUI extends JFrame implements ActionListener {
 
-    private Utils utils = new Utils();
+    private final Utils utils = new Utils();
     private JPanel panContent;
     private JButton btnConfigureHeader;
     private JButton btnConfigureWhitelist;

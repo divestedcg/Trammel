@@ -31,18 +31,18 @@ import java.util.zip.GZIPInputStream;
  * Date: 6/9/15
  * Time; 1:11 PM
  */
-public class Utils {
+class Utils {
 
     String ipAddressRegex = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))";//Credit: http://stackoverflow.com/a/5667402
     //String hostnameRegex = "(?:(?:(?:(?:[a-zA-Z0-9][-a-zA-Z0-9]{0,61})?[a-zA-Z0-9])[.])*(?:[a-zA-Z][-a-zA-Z0-9]{0,61}[a-zA-Z0-9]|[a-zA-Z])[.]?)";//Credit: http://stackoverflow.com/a/1418724
-    static String hostnameRegex = "^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$";//Credit: http://www.mkyong.com/regular-expressions/domain-name-regular-expression-example/
+    private static final String hostnameRegex = "^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$";//Credit: http://www.mkyong.com/regular-expressions/domain-name-regular-expression-example/
 
     //Credit: http://stackoverflow.com/a/4895572
     public static String byteArrayToHexString(byte[] b) {
-        String result = "";
-        for (int i = 0; i < b.length; i++)
-            result += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
-        return result;
+        StringBuilder result = new StringBuilder();
+        for (byte aB : b)
+            result.append(Integer.toString((aB & 0xff) + 0x100, 16).substring(1));
+        return result.toString();
     }
 
     //Credit: http://fahdshariff.blogspot.ru/2011/08/java-7-deleting-directory-by-walking.html
@@ -123,7 +123,7 @@ public class Utils {
         return hostsFile;
     }
 
-    public String getOS() {
+    private String getOS() {
         try {
             String os = System.getProperty("os.name", "generic").toLowerCase(Locale.ENGLISH);
             if (os.contains("linux"))
@@ -166,7 +166,7 @@ public class Utils {
     }
 
     public ArrayList<String> readFileIntoArray(File in) {
-        ArrayList<String> out = new ArrayList<String>();
+        ArrayList<String> out = new ArrayList<>();
         try {
             Scanner fileIn = new Scanner(in);
             while (fileIn.hasNext()) {
@@ -182,7 +182,7 @@ public class Utils {
     }
 
     public ArrayList<String> readHostsFileIntoArray(File in) {
-        ArrayList<String> out = new ArrayList<String>();
+        ArrayList<String> out = new ArrayList<>();
         try {
             Scanner fileIn = null;
             if (identifyFileType(in.toString()).contains(".txt")) {//Plain text
@@ -204,17 +204,15 @@ public class Utils {
                             System.gc();
                             newFileOutPath.delete();
                         }
-                        ExtractOperationResult result = file.extractSlow(new ISequentialOutStream() {
-                            public int write(byte[] data) throws SevenZipException {
-                                try {
-                                    FileOutputStream newFileOut = new FileOutputStream(newFileOutPath);
-                                    newFileOut.write(data);
-                                    newFileOut.close();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                return data.length;
+                        ExtractOperationResult result = file.extractSlow(data -> {
+                            try {
+                                FileOutputStream newFileOut = new FileOutputStream(newFileOutPath);
+                                newFileOut.write(data);
+                                newFileOut.close();
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
+                            return data.length;
                         });
                         fileIn = new Scanner(newFileOutPath);
                         break;
@@ -242,14 +240,14 @@ public class Utils {
                     Pattern pattern = Pattern.compile(hostnameRegex);//Only look for hostnames in a string
                     line = line.replaceAll(".*\\://", "").replaceAll("/", "");
                     String[] spaceSplit = line.replaceAll("\\s", "~").split("~");
-                    Matcher matcher = null;
-                    for (int x = 0; x < spaceSplit.length; x++) {
-                        matcher = pattern.matcher(spaceSplit[x]);//Apply the pattern to the string
+                    Matcher matcher;
+                    for (String aSpaceSplit : spaceSplit) {
+                        matcher = pattern.matcher(aSpaceSplit);//Apply the pattern to the string
                         if (matcher.find()) {//Check if the string meets our requirements
                             out.add(matcher.group());
                             c++;
-                        } else if (spaceSplit[x].contains("xn--")) {
-                            out.add(spaceSplit[x]);//Sssssh, its okay
+                        } else if (aSpaceSplit.contains("xn--")) {
+                            out.add(aSpaceSplit);//Sssssh, its okay
                             c++;
                         }
                     }

@@ -50,16 +50,12 @@ public class Utils {
         try {
             System.gc();
             Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-                    throws IOException {
+                @Override public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                     Files.delete(file);
                     return FileVisitResult.CONTINUE;
                 }
 
-                @Override
-                public FileVisitResult postVisitDirectory(Path dir, IOException exc)
-                    throws IOException {
+                @Override public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
                     if (exc == null) {
                         Files.delete(dir);
                         return FileVisitResult.CONTINUE;
@@ -102,8 +98,7 @@ public class Utils {
                 configDir = new File("/etc/trammel/");
                 break;
             case "Mac":
-                configDir = new File(
-                    System.getProperty("user.home") + "/Library/Application Support/Trammel/");
+                configDir = new File(System.getProperty("user.home") + "/Library/Application Support/Trammel/");
                 break;
             case "Windows":
                 configDir = new File(System.getenv("AppData") + "/Trammel/");
@@ -246,14 +241,14 @@ public class Utils {
                 if (!line.startsWith("#") && !line.trim().equals("")) {//Skip if line is a comment or is blank
                     Pattern pattern = Pattern.compile(hostnameRegex);//Only look for hostnames in a string
                     line = line.replaceAll(".*\\://", "").replaceAll("/", "");
-                    String[] spaceSplit = line.replaceAll("\\s","~").split("~");
+                    String[] spaceSplit = line.replaceAll("\\s", "~").split("~");
                     Matcher matcher = null;
-                    for(int x = 0; x < spaceSplit.length; x++) {
+                    for (int x = 0; x < spaceSplit.length; x++) {
                         matcher = pattern.matcher(spaceSplit[x]);//Apply the pattern to the string
                         if (matcher.find()) {//Check if the string meets our requirements
                             out.add(matcher.group());
                             c++;
-                        } else if(spaceSplit[x].contains("xn--")) {
+                        } else if (spaceSplit[x].contains("xn--")) {
                             out.add(spaceSplit[x]);//Sssssh, its okay
                             c++;
                         }

@@ -41,8 +41,7 @@ public class Editor extends JFrame {
         }
 
         btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            @Override public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     PrintWriter writer = new PrintWriter(fleIn, "UTF-8");
                     writer.write(txtEditor.getText());

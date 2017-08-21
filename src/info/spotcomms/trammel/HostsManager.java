@@ -8,10 +8,9 @@ import javax.swing.*;
 import java.io.File;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created using IntelliJ IDEA
@@ -41,6 +40,7 @@ public class HostsManager {
     private int format;
     private File fleOutput;
     private File fleOutputOld;
+    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
     public HostsManager() {
 
@@ -58,6 +58,7 @@ public class HostsManager {
         arrWhitelist = utils.readHostsFileIntoArray(fleWhitelist);
         arrBlacklist = utils.readHostsFileIntoArray(fleBlacklist);
         arrBlocklists = utils.readFileIntoArray(fleBlocklists);
+        arrBlocklists.sort(String::compareTo);
     }
 
     public void generateDefaults() {
@@ -77,6 +78,7 @@ public class HostsManager {
     public void update() {
         try {
             for (String url : arrBlocklists) {
+                url = url.split(",")[0];
                 File out = new File(dirCache, utils.byteArrayToHexString(MessageDigest.getInstance("MD5").digest(url.getBytes("utf-8"))) + utils.identifyFileType(url));
                 utils.downloadFile(url, out.toPath(), cache);
                 int preAddCount = arrDomains.size();
@@ -148,6 +150,17 @@ public class HostsManager {
                     writer.println(line);
                 }
             }
+            writer.println("#\n#Created using Trammel/n#Distributed by Coverage");
+            writer.println("#Last Updated: " +  dateFormat.format(Calendar.getInstance().getTime()));
+            writer.println("#Number of Entries: " + arrOutNew.size());
+            writer.println("#\n#Created from the following lists");
+            writer.println("#All attempts have been made to ensure accuracy of the corresponding license files.");
+            writer.println("#If you would like your list removed from this list please email us at support@spotco.us");
+            for(String list : arrBlocklists) {
+                String[] listS = list.split(",");
+                writer.println("#License: " + listS[1] + " - " + listS[0]);
+            }
+            writer.println("#\n");
             for (String line : arrOutNew) {
                 writer.println(line);
             }

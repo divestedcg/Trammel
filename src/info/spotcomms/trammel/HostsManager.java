@@ -150,7 +150,7 @@ class HostsManager {
                     writer.println(line);
                 }
             }
-            writer.println("#\n#Created using Trammel/n#Distributed by Coverage");
+            writer.println("#\n#Created using Trammel\n#Distributed by Coverage");
             writer.println("#Last Updated: " + dateFormat.format(Calendar.getInstance().getTime()));
             writer.println("#Number of Entries: " + arrOutNew.size());
             writer.println("#\n#Created from the following lists");

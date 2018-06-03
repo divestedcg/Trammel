@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015. Spot Communications
+ * Copyright (c) 2015. Divested Computing, Inc.
  */
 
 package info.spotcomms.trammel;

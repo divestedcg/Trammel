@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inherit-compiler-output="true" inheritJdk="true">
+	<output-test url="file://$MODULE_DIR$/../out/test/Trammel"/>
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<levels>
+		<level name="XZ" value="project"/>
+		<level name="Zip4J" value="project"/>
+		<level name="7Z" value="project"/>
+	</levels>
+</component>

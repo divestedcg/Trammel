@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015. Divested Computing Group
+ * Copyright (c) 2015 Divested Computing Group
  */
 
 package info.spotcomms.trammel;

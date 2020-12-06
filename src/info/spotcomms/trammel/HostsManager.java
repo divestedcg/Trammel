@@ -163,12 +163,12 @@ class HostsManager {
                     writer.println(line);
                 }
             }
-            writer.println("#\n#Created using Trammel\n#Distributed by Coverage");
+            writer.println("#\n#Created using Trammel");
             writer.println("#Last Updated: " + dateFormat.format(Calendar.getInstance().getTime()));
             writer.println("#Number of Entries: " + arrOutNew.size());
             writer.println("#\n#Created from the following lists");
             writer.println("#All attempts have been made to ensure accuracy of the corresponding license files.");
-            writer.println("#If you would like your list removed from this list please email us at support@spotco.us");
+            writer.println("#If you would like your list removed from this list please email us at webmaster@[THIS DOMAIN]");
             for (String list : arrBlocklists) {
                 String[] listS = list.split(",");
                 writer.println("#License: " + listS[1] + " - " + listS[0]);

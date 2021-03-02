@@ -48,11 +48,11 @@ import java.util.zip.GZIPInputStream;
  */
 class Utils {
 
-    String ipAddressRegex = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))";//Credit: http://stackoverflow.com/a/5667402
-    //String hostnameRegex = "(?:(?:(?:(?:[a-zA-Z0-9][-a-zA-Z0-9]{0,61})?[a-zA-Z0-9])[.])*(?:[a-zA-Z][-a-zA-Z0-9]{0,61}[a-zA-Z0-9]|[a-zA-Z])[.]?)";//Credit: http://stackoverflow.com/a/1418724
-    private static final String hostnameRegex = "^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$";//Credit: http://www.mkyong.com/regular-expressions/domain-name-regular-expression-example/
+    String ipAddressRegex = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))";//Credit (CC BY-SA 3.0): https://stackoverflow.com/a/5667402
+    //String hostnameRegex = "(?:(?:(?:(?:[a-zA-Z0-9][-a-zA-Z0-9]{0,61})?[a-zA-Z0-9])[.])*(?:[a-zA-Z][-a-zA-Z0-9]{0,61}[a-zA-Z0-9]|[a-zA-Z])[.]?)";//Credit (CC BY-SA 2.5): https://stackoverflow.com/a/1418724
+    private static final String hostnameRegex = "^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$";//Credit (MIT): http://www.mkyong.com/regular-expressions/domain-name-regular-expression-example/
 
-    //Credit: http://stackoverflow.com/a/4895572
+    //Credit (CC BY-SA 2.5): https://stackoverflow.com/a/4895572
     public static String byteArrayToHexString(byte[] b) {
         StringBuilder result = new StringBuilder();
         for (byte aB : b)
@@ -60,7 +60,7 @@ class Utils {
         return result.toString();
     }
 
-    //Credit: http://fahdshariff.blogspot.ru/2011/08/java-7-deleting-directory-by-walking.html
+    //Credit (GPL-3.0): https://fahdshariff.blogspot.com/2011/08/java-7-deleting-directory-by-walking.html
     public void deleteDirectory(Path dir) {
         try {
             System.gc();
@@ -167,11 +167,11 @@ class Utils {
         return extension;
     }
 
-    //Credit: http://stackoverflow.com/a/23538961
+    //Credit (CC BY-SA 3.0): https://stackoverflow.com/a/23538961
     private static boolean isAdmin() {
         try {
             Preferences prefs = Preferences.systemRoot();
-            prefs.put("trammel", "swag");//SecurityException on Windows
+            prefs.put("trammel", "leilohch");//SecurityException on Windows
             prefs.remove("trammel");
             prefs.flush();//BackingStoreException on Linux
             return true;
@@ -235,7 +235,7 @@ class Utils {
                 }
             }
             if (identifyFileType(in.toString()).contains(".zip")) {//Decompress ZIP
-                //Credit: http://stackoverflow.com/a/14656534 and http://stackoverflow.com/a/18974782
+                //Credit (CC BY-SA 3.0): https://stackoverflow.com/a/14656534 and https://stackoverflow.com/a/18974782
                 ZipFile compressedList = new ZipFile(in);
                 ArrayList compressedFiles = (ArrayList) compressedList.getFileHeaders();
                 for (Object file : compressedFiles) {

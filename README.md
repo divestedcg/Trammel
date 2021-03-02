@@ -30,15 +30,15 @@ Reasons for Creation || Issues with Similar Programs
 
 Credits
 -------
-- Zip4j: http://www.lingala.net/zip4j/
-- 7-Zip-JBinding: http://sevenzipjbind.sourceforge.net/
-- Icon: ic8.link/10484
-- http://fahdshariff.blogspot.ru/2011/08/java-7-deleting-directory-by-walking.html
-- http://stackoverflow.com/a/1418724
-- http://stackoverflow.com/a/14656534
-- http://stackoverflow.com/a/18974782
-- http://stackoverflow.com/a/203992
-- http://stackoverflow.com/a/23538961
-- http://stackoverflow.com/a/4895572
-- http://stackoverflow.com/a/5667402
-- http://www.mkyong.com/regular-expressions/domain-name-regular-expression-example/
+- Zip4j, License: Apache-2.0, https://github.com/srikanth-lingala/zip4j
+- 7-Zip-JBinding, License: LGPL-2.1 https://github.com/borisbrodski/sevenzipjbinding
+- Icon: https://icons8.com/icon/10484/web-shield
+- (GPL-3.0) https://fahdshariff.blogspot.com/2011/08/java-7-deleting-directory-by-walking.html
+- (CC BY-SA 2.5) https://stackoverflow.com/a/1418724
+- (CC BY-SA 3.0) https://stackoverflow.com/a/14656534
+- (CC BY-SA 3.0) https://stackoverflow.com/a/18974782
+- (CC BY-SA 2.5) https://stackoverflow.com/a/203992
+- (CC BY-SA 3.0) https://stackoverflow.com/a/23538961
+- (CC BY-SA 2.5) https://stackoverflow.com/a/4895572
+- (CC BY-SA 3.0) https://stackoverflow.com/a/5667402
+- (MIT) https://www.mkyong.com/regular-expressions/domain-name-regular-expression-example/

@@ -32,7 +32,7 @@ Credits
 -------
 - Zip4j, License: Apache-2.0, https://github.com/srikanth-lingala/zip4j
 - 7-Zip-JBinding, License: LGPL-2.1 https://github.com/borisbrodski/sevenzipjbinding
-- Icons (Apache-2.0): Google/Android/AOSP
+- Icon: Google/Android/AOSP, License: Apache 2.0, https://google.github.io/material-design-icons/
 - (GPL-3.0) https://fahdshariff.blogspot.com/2011/08/java-7-deleting-directory-by-walking.html
 - (CC BY-SA 2.5) https://stackoverflow.com/a/1418724
 - (CC BY-SA 3.0) https://stackoverflow.com/a/14656534
@@ -42,3 +42,7 @@ Credits
 - (CC BY-SA 2.5) https://stackoverflow.com/a/4895572
 - (CC BY-SA 3.0) https://stackoverflow.com/a/5667402
 - (MIT) https://www.mkyong.com/regular-expressions/domain-name-regular-expression-example/
+
+Donate
+-------
+BTC: bc1qkjtp2k7cc4kuv8k9wjdlxkeuqczenrpv5mwasl

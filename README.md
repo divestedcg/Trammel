@@ -7,6 +7,10 @@ Requirements
 - Linux, Mac OS X, Windows
 - 256MB
 
+Prebuilts
+---------
+- via CI: https://gitlab.com/divested/trammel/-/jobs/artifacts/master/browse?job=build
+
 Supported Lists
 ---------------
 - File Types: .txt, .hosts, .gz, .zip, .7z, [none] and unknown will be treated as .txt

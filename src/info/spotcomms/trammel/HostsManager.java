@@ -53,7 +53,7 @@ class HostsManager {
     private int format;
     private File fleOutput;
     private File fleOutputOld;
-    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public HostsManager() {
 
